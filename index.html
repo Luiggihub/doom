@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HELLSCAPE — FPS Clássico</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       TELA INICIAL
+  ═══════════════════════════════════════════════ -->
+  <div id="startScreen">
+    <div class="start-content">
+      <div class="logo-text">HELLSCAPE</div>
+      <div class="logo-sub">— FIRST PERSON SHOOTER —</div>
+      <div class="start-info">
+        <p>WASD = Mover &nbsp;|&nbsp; Mouse = Olhar</p>
+        <p>Clique Esquerdo = Atirar &nbsp;|&nbsp; R = Recarregar</p>
+        <p>Shift = Correr &nbsp;|&nbsp; 1/2/3 = Trocar Arma</p>
+      </div>
+      <button id="startBtn" class="doom-btn">▶ INICIAR JOGO</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       TELA DE GAME OVER
+  ═══════════════════════════════════════════════ -->
+  <div id="gameOverScreen" class="hidden">
+    <div class="start-content">
+      <div class="logo-text red">VOCÊ MORREU</div>
+      <div class="logo-sub">— GAME OVER —</div>
+      <div id="finalScore" class="final-score"></div>
+      <button id="restartBtn" class="doom-btn">↺ REINICIAR</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       ÁREA DO JOGO
+  ═══════════════════════════════════════════════ -->
+  <div id="gameContainer" class="hidden">
+
+    <!-- Canvas principal de renderização -->
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- HUD — cabeçalho (FPS) -->
+    <div id="hud-top">
+      <span id="fpsCounter">FPS: 0</span>
+    </div>
+
+    <!-- HUD — rodapé (vida, munição, mini-mapa) -->
+    <div id="hud-bottom">
+
+      <!-- Mini-mapa -->
+      <canvas id="minimapCanvas" width="120" height="120"></canvas>
+
+      <!-- Status do jogador -->
+      <div id="player-status">
+        <div class="status-row">
+          <span class="status-label">VIDA</span>
+          <div class="bar-bg">
+            <div id="healthBar" class="bar health-bar" style="width:100%"></div>
+          </div>
+          <span id="healthVal">100</span>
+        </div>
+        <div class="status-row">
+          <span class="status-label">ARMA</span>
+          <span id="weaponName" style="color:#e67e22;font-size:0.9rem;font-weight:bold;">PISTOLA</span>
+        </div>
+        <div class="status-row">
+          <span class="status-label">MUNIÇÃO</span>
+          <span id="ammoCount">30 / 90</span>
+        </div>
+        <div class="status-row">
+          <span class="status-label">MORTES</span>
+          <span id="killCount">0</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Indicador de dano (flash vermelho) -->
+    <div id="damageIndicator"></div>
+
+    <!-- Crosshair -->
+    <div id="crosshair">+</div>
+
+    <!-- Mensagem de recarga -->
+    <div id="reloadMsg" class="hidden">RECARREGANDO...</div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
