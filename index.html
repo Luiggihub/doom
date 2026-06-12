@@ -8,9 +8,7 @@
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════════
-       TELA INICIAL
-  ═══════════════════════════════════════════════ -->
+  <!-- TELA INICIAL -->
   <div id="startScreen">
     <div class="start-content">
       <div class="logo-text">HELLSCAPE</div>
@@ -18,15 +16,14 @@
       <div class="start-info">
         <p>WASD = Mover &nbsp;|&nbsp; Mouse = Olhar</p>
         <p>Clique Esquerdo = Atirar &nbsp;|&nbsp; R = Recarregar</p>
-        <p>Shift = Correr &nbsp;|&nbsp; 1/2/3 = Trocar Arma</p>
+        <p>Shift = Correr &nbsp;|&nbsp; 1/2/3/4 = Trocar Arma</p>
+        <p>F = Visualizar Faca &nbsp;|&nbsp; <span style="color:#00ddff">E = Portão</span> &nbsp;|&nbsp; ESC = Pausar</p>
       </div>
       <button id="startBtn" class="doom-btn">▶ INICIAR JOGO</button>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════
-       TELA DE GAME OVER
-  ═══════════════════════════════════════════════ -->
+  <!-- TELA DE GAME OVER -->
   <div id="gameOverScreen" class="hidden">
     <div class="start-content">
       <div class="logo-text red">VOCÊ MORREU</div>
@@ -36,26 +33,30 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════
-       ÁREA DO JOGO
-  ═══════════════════════════════════════════════ -->
-  <div id="gameContainer" class="hidden">
+  <!-- TELA DE PAUSA -->
+  <div id="pauseScreen" class="hidden">
+    <div class="start-content">
+      <div class="logo-text" style="font-size:clamp(2rem,6vw,4rem);">PAUSADO</div>
+      <div class="logo-sub">— JOGO EM PAUSA —</div>
+      <div class="pause-stats" id="pauseStats"></div>
+      <button id="resumeBtn" class="doom-btn">▶ CONTINUAR</button>
+      <button id="restartFromPauseBtn" class="doom-btn" style="margin-top:0;background:#333;border-color:#555;">↺ REINICIAR</button>
+    </div>
+  </div>
 
-    <!-- Canvas principal de renderização -->
+  <!-- ÁREA DO JOGO -->
+  <div id="gameContainer" class="hidden">
     <canvas id="gameCanvas"></canvas>
 
-    <!-- HUD — cabeçalho (FPS) -->
+    <!-- HUD topo -->
     <div id="hud-top">
       <span id="fpsCounter">FPS: 0</span>
+      <span id="levelInfo" style="margin-left:16px;color:#e67e22;"></span>
     </div>
 
-    <!-- HUD — rodapé (vida, munição, mini-mapa) -->
+    <!-- HUD rodapé -->
     <div id="hud-bottom">
-
-      <!-- Mini-mapa -->
       <canvas id="minimapCanvas" width="120" height="120"></canvas>
-
-      <!-- Status do jogador -->
       <div id="player-status">
         <div class="status-row">
           <span class="status-label">VIDA</span>
@@ -63,6 +64,13 @@
             <div id="healthBar" class="bar health-bar" style="width:100%"></div>
           </div>
           <span id="healthVal">100</span>
+        </div>
+        <div class="status-row">
+          <span class="status-label">COLETE</span>
+          <div class="bar-bg">
+            <div id="armorBar" class="bar armor-bar" style="width:0%"></div>
+          </div>
+          <span id="armorVal">0</span>
         </div>
         <div class="status-row">
           <span class="status-label">ARMA</span>
@@ -77,18 +85,25 @@
           <span id="killCount">0</span>
         </div>
       </div>
-
+      <!-- Seletor de armas -->
+      <div id="weapon-slots">
+        <div class="wslot" id="ws1" data-w="pistol">1 PISTOLA</div>
+        <div class="wslot" id="ws2" data-w="shotgun">2 ESCOPETA</div>
+        <div class="wslot" id="ws3" data-w="machinegun">3 METR.</div>
+        <div class="wslot" id="ws4" data-w="knife">4 FACA</div>
+      </div>
     </div>
 
-    <!-- Indicador de dano (flash vermelho) -->
     <div id="damageIndicator"></div>
-
-    <!-- Crosshair -->
     <div id="crosshair">+</div>
-
-    <!-- Mensagem de recarga -->
     <div id="reloadMsg" class="hidden">RECARREGANDO...</div>
-
+    <!-- Indicador de BOSS HP -->
+    <div id="bossHPBar" class="hidden">
+      <div class="boss-label" id="bossName">CHEFE</div>
+      <div class="boss-bar-bg"><div id="bossHP" class="boss-bar"></div></div>
+    </div>
+    <!-- Mensagem de fase -->
+    <div id="levelMsg" class="hidden"></div>
   </div>
 
   <script src="script.js"></script>
