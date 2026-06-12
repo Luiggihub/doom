@@ -1,21 +1,18 @@
 /* ═══════════════════════════════════════════════════════════
    HELLSCAPE — FPS Clássico
-   style.css
-   Estética retro pixelada inspirada nos FPS de 1993
+   style.css — Atualizado com pausa, barra de boss, slots de arma
 ═══════════════════════════════════════════════════════════ */
-
-/* ── Reset & Base ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
   --clr-bg:       #0a0a0a;
-  --clr-primary:  #c0392b;   /* vermelho sangue */
-  --clr-accent:   #e67e22;   /* laranja fogo    */
+  --clr-primary:  #c0392b;
+  --clr-accent:   #e67e22;
   --clr-hud:      #1a1a1a;
-  --clr-text:     #e8dcc8;   /* pergaminho      */
+  --clr-text:     #e8dcc8;
   --clr-dim:      #8a7a6a;
   --font-pixel:   'Courier New', Courier, monospace;
-  --hud-h:        110px;
+  --hud-h:        120px;
 }
 
 html, body {
@@ -27,28 +24,25 @@ html, body {
   user-select: none;
 }
 
-/* ── Utilitários ── */
 .hidden { display: none !important; }
 .red    { color: var(--clr-primary); }
 
-/* ═══════════════════════════════════════════════
-   TELA INICIAL / GAME OVER
-═══════════════════════════════════════════════ */
-#startScreen,
-#gameOverScreen {
+/* ── Telas de menu ── */
+#startScreen, #gameOverScreen, #pauseScreen {
   position: fixed; inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   background: radial-gradient(ellipse at center, #1a0505 0%, #000 70%);
-  z-index: 100;
+  z-index: 200;
+}
+
+#pauseScreen {
+  background: rgba(0,0,0,0.88);
+  backdrop-filter: blur(4px);
 }
 
 .start-content {
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: flex; flex-direction: column; align-items: center;
   gap: 18px;
 }
 
@@ -57,207 +51,161 @@ html, body {
   font-weight: 900;
   letter-spacing: 0.15em;
   color: var(--clr-primary);
-  text-shadow:
-    0 0 20px #ff000088,
-    0 0 60px #ff000044,
-    4px 4px 0 #5a0000;
+  text-shadow: 0 0 20px #ff000088, 0 0 60px #ff000044, 4px 4px 0 #5a0000;
   animation: pulse-logo 2s ease-in-out infinite;
 }
-
 .logo-sub {
   font-size: clamp(0.7rem, 2vw, 1rem);
   letter-spacing: 0.4em;
   color: var(--clr-dim);
   text-transform: uppercase;
 }
-
 .start-info {
-  margin: 10px 0;
-  color: var(--clr-dim);
-  font-size: 0.82rem;
-  line-height: 2;
-  letter-spacing: 0.05em;
+  margin: 10px 0; color: var(--clr-dim);
+  font-size: 0.82rem; line-height: 2; letter-spacing: 0.05em;
 }
-
+.pause-stats {
+  font-size: 0.9rem; color: var(--clr-accent);
+  letter-spacing: 0.08em; line-height: 1.8;
+}
 .doom-btn {
-  margin-top: 10px;
-  padding: 14px 40px;
-  font-family: var(--font-pixel);
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  color: var(--clr-text);
-  background: var(--clr-primary);
-  border: 3px solid var(--clr-accent);
-  cursor: pointer;
-  transition: background 0.15s, transform 0.1s;
-  text-transform: uppercase;
+  margin-top: 10px; padding: 14px 40px;
+  font-family: var(--font-pixel); font-size: 1.1rem;
+  font-weight: 700; letter-spacing: 0.2em;
+  color: var(--clr-text); background: var(--clr-primary);
+  border: 3px solid var(--clr-accent); cursor: pointer;
+  transition: background 0.15s, transform 0.1s; text-transform: uppercase;
 }
-.doom-btn:hover {
-  background: var(--clr-accent);
-  transform: scale(1.04);
-}
+.doom-btn:hover { background: var(--clr-accent); transform: scale(1.04); }
 .doom-btn:active { transform: scale(0.97); }
-
-.final-score {
-  font-size: 1.2rem;
-  color: var(--clr-accent);
-  letter-spacing: 0.1em;
-}
+.final-score { font-size: 1.2rem; color: var(--clr-accent); letter-spacing: 0.1em; }
 
 @keyframes pulse-logo {
   0%, 100% { text-shadow: 0 0 20px #ff000088, 4px 4px 0 #5a0000; }
   50%       { text-shadow: 0 0 40px #ff0000bb, 0 0 80px #ff000055, 4px 4px 0 #5a0000; }
 }
 
-/* ═══════════════════════════════════════════════
-   CONTAINER DO JOGO
-═══════════════════════════════════════════════ */
+/* ── Container do jogo ── */
 #gameContainer {
   position: fixed; inset: 0;
-  display: flex;
-  flex-direction: column;
+  display: flex; flex-direction: column;
 }
-
-/* Canvas ocupa tudo exceto o HUD inferior */
 #gameCanvas {
-  display: block;
-  width: 100%;
-  flex: 1;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
+  display: block; width: 100%; flex: 1;
+  image-rendering: pixelated; image-rendering: crisp-edges;
 }
 
-/* ═══════════════════════════════════════════════
-   HUD — TOPO
-═══════════════════════════════════════════════ */
+/* ── HUD Topo ── */
 #hud-top {
-  position: absolute;
-  top: 8px; right: 12px;
-  font-size: 0.75rem;
-  color: #55ff55;
+  position: absolute; top: 8px; right: 12px;
+  font-size: 0.75rem; color: #55ff55;
   letter-spacing: 0.08em;
   text-shadow: 0 0 6px #00ff0044;
   pointer-events: none;
 }
 
-/* ═══════════════════════════════════════════════
-   HUD — RODAPÉ
-═══════════════════════════════════════════════ */
+/* ── HUD Rodapé ── */
 #hud-bottom {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
+  position: absolute; bottom: 0; left: 0; right: 0;
   height: var(--hud-h);
   background: linear-gradient(to top, #0d0d0d, #141414);
   border-top: 2px solid #2a2a2a;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 0 16px;
+  display: flex; align-items: center;
+  gap: 16px; padding: 0 16px;
   pointer-events: none;
 }
+#minimapCanvas { border: 2px solid #333; flex-shrink: 0; image-rendering: pixelated; }
+#player-status { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.status-row { display: flex; align-items: center; gap: 10px; font-size: 0.78rem; letter-spacing: 0.05em; }
+.status-label { color: var(--clr-dim); width: 58px; flex-shrink: 0; font-size: 0.68rem; letter-spacing: 0.12em; }
+.bar-bg { flex: 1; max-width: 200px; height: 10px; background: #1e1e1e; border: 1px solid #333; }
+.bar { height: 100%; transition: width 0.2s; }
+.health-bar { background: linear-gradient(to right, var(--clr-primary), #e74c3c); box-shadow: 0 0 6px #c0392b88; }
+.armor-bar  { background: linear-gradient(to right, #1a5fb4, #3399ff); box-shadow: 0 0 6px #3399ff88; }
+#ammoCount, #killCount { color: var(--clr-accent); font-size: 0.9rem; font-weight: bold; }
 
-/* Mini-mapa */
-#minimapCanvas {
-  border: 2px solid #333;
-  flex-shrink: 0;
-  image-rendering: pixelated;
+/* ── Slots de arma ── */
+#weapon-slots {
+  display: flex; flex-direction: column; gap: 4px;
+  margin-left: auto; padding-right: 8px;
 }
-
-/* Status */
-#player-status {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 1;
+.wslot {
+  font-size: 0.62rem; letter-spacing: 0.08em;
+  color: #555; padding: 2px 6px;
+  border: 1px solid #222;
+  transition: color 0.1s, border-color 0.1s;
 }
-
-.status-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.78rem;
-  letter-spacing: 0.05em;
-}
-
-.status-label {
-  color: var(--clr-dim);
-  width: 58px;
-  flex-shrink: 0;
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-}
-
-.bar-bg {
-  flex: 1;
-  max-width: 200px;
-  height: 10px;
-  background: #1e1e1e;
-  border: 1px solid #333;
-}
-
-.bar {
-  height: 100%;
-  transition: width 0.2s;
-}
-
-.health-bar {
-  background: linear-gradient(to right, var(--clr-primary), #e74c3c);
-  box-shadow: 0 0 6px #c0392b88;
-}
-
-#ammoCount, #killCount {
+.wslot.active {
   color: var(--clr-accent);
-  font-size: 0.9rem;
-  font-weight: bold;
+  border-color: var(--clr-accent);
+  text-shadow: 0 0 6px #e67e2288;
+}
+.wslot.locked {
+  opacity: 0.28;
 }
 
-/* ═══════════════════════════════════════════════
-   INDICADOR DE DANO
-═══════════════════════════════════════════════ */
+/* ── Indicador de dano ── */
 #damageIndicator {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+  position: absolute; inset: 0; pointer-events: none;
   background: radial-gradient(ellipse at center, transparent 50%, #c0392b88 100%);
-  opacity: 0;
-  transition: opacity 0.1s;
+  opacity: 0; transition: opacity 0.1s;
   bottom: var(--hud-h);
 }
 #damageIndicator.flash { opacity: 1; }
 
-/* ═══════════════════════════════════════════════
-   CROSSHAIR
-═══════════════════════════════════════════════ */
+/* ── Crosshair ── */
 #crosshair {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, calc(-50% - var(--hud-h) / 2));
-  font-size: 22px;
-  color: rgba(255,255,255,0.75);
-  pointer-events: none;
-  text-shadow: 0 0 4px #000;
-  line-height: 1;
+  font-size: 22px; color: rgba(255,255,255,0.75);
+  pointer-events: none; text-shadow: 0 0 4px #000; line-height: 1;
 }
 
-/* ═══════════════════════════════════════════════
-   MENSAGEM DE RECARGA
-═══════════════════════════════════════════════ */
+/* ── Reload msg ── */
 #reloadMsg {
-  position: absolute;
-  bottom: calc(var(--hud-h) + 60px);
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1rem;
-  letter-spacing: 0.2em;
-  color: var(--clr-accent);
-  text-shadow: 0 0 10px #e67e2288;
-  animation: blink 0.5s step-end infinite;
+  position: absolute; bottom: calc(var(--hud-h) + 60px);
+  left: 50%; transform: translateX(-50%);
+  font-size: 1rem; letter-spacing: 0.2em;
+  color: var(--clr-accent); text-shadow: 0 0 10px #e67e2288;
+  animation: blink 0.5s step-end infinite; pointer-events: none;
+}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* ── Barra de boss ── */
+#bossHPBar {
+  position: absolute; top: 40px; left: 50%; transform: translateX(-50%);
+  width: 60%; max-width: 500px;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
   pointer-events: none;
 }
+.boss-label {
+  font-size: 0.8rem; letter-spacing: 0.25em;
+  color: #ff4444; text-shadow: 0 0 8px #ff000088;
+}
+.boss-bar-bg {
+  width: 100%; height: 12px;
+  background: #200000; border: 1px solid #550000;
+}
+.boss-bar {
+  height: 100%; width: 100%;
+  background: linear-gradient(to right, #880000, #ff2200);
+  box-shadow: 0 0 8px #ff220088;
+  transition: width 0.3s;
+}
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
+/* ── Mensagem de fase ── */
+#levelMsg {
+  position: absolute; top: 20%; left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  letter-spacing: 0.3em; color: #ffcc00;
+  text-shadow: 0 0 20px #ffcc0088;
+  pointer-events: none;
+  animation: fadeInOut 3s ease forwards;
+}
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+  20% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  70% { opacity: 1; }
+  100% { opacity: 0; }
 }
