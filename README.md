@@ -1,65 +1,73 @@
-# 🔥 HELLSCAPE — FPS Clássico em JavaScript
+# 🔥 HELLSCAPE
 
-![Status](https://img.shields.io/badge/Status-Concluído-green)
-![HTML](https://img.shields.io/badge/HTML5-100%25-orange)
-![CSS](https://img.shields.io/badge/CSS3-Estilizado-blue)
-![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-yellow)
+Um FPS retrô inspirado nos clássicos dos anos 90, desenvolvido inteiramente com HTML, CSS e JavaScript puro.
 
-## 📖 Sobre o Projeto
-
-**HELLSCAPE** é um jogo FPS (First Person Shooter) desenvolvido inteiramente com **HTML, CSS e JavaScript puro**, inspirado nos clássicos dos anos 90 como DOOM e Wolfenstein 3D.
-
-O projeto utiliza a técnica de **Raycasting** para simular ambientes 3D dentro do navegador, sem utilizar bibliotecas externas ou engines gráficas.
-
-O objetivo foi estudar conceitos avançados de programação, matemática aplicada a jogos e desenvolvimento web, criando uma experiência retrô totalmente funcional.
+HELLSCAPE utiliza a técnica de Raycasting para simular ambientes 3D diretamente no navegador, sem frameworks ou engines externas.
 
 ---
 
-## 🎮 Funcionalidades
+## 🎮 Sobre o Projeto
+
+HELLSCAPE é um projeto criado para estudar desenvolvimento de jogos, programação web e conceitos de renderização em primeira pessoa.
+
+O jogo conta com combate contra inimigos, múltiplas armas, chefes, progressão por fases, sistema de armadura, HUD completa e diversos elementos inspirados em jogos clássicos como DOOM.
+
+---
+
+## ✨ Funcionalidades
 
 ### 🚶 Movimentação
 - Movimento com WASD
 - Corrida com Shift
-- Rotação da câmera utilizando o mouse
-- Sistema de colisão com paredes
+- Controle da câmera pelo mouse
+- Sistema de colisão
+- Interação com objetos do mapa
 
-### 🔫 Sistema de Combate
+### 🔫 Arsenal
 - Pistola
 - Escopeta
 - Metralhadora
+- Faca
+- Troca rápida de armas
 - Sistema de munição
-- Recarga manual (R)
-- Troca de armas (1, 2 e 3)
+- Recarga manual
 
-### 👹 Inimigos
-- Imp
-- Demon
-- Cacodemon
-- Inteligência artificial básica
-- Patrulhamento
-- Perseguição do jogador
-- Ataques corpo a corpo e à distância
-
-### 🗺️ Mapas
-- Múltiplos níveis
-- Diferentes texturas
-- Sistema de progressão
-- Mini mapa em tempo real
+### 👹 Inimigos e Combate
+- Inimigos com IA básica
+- Sistema de perseguição
+- Ataques à distância e corpo a corpo
+- Contador de eliminações
+- Chefes de fase (Boss Fights)
+- Barra de vida exclusiva para chefes
 
 ### ❤️ Sistema de Sobrevivência
-- Barra de vida
-- Kits médicos
-- Coleta de munição
+- Vida do jogador
+- Sistema de armadura/colete
+- Indicador visual de dano
 - Tela de Game Over
-- Sistema de pontuação
+- Reinício de partida
 
-### 🔊 Áudio
-- Sons gerados via Web Audio API
-- Disparos
-- Recarga
-- Dano
-- Passos
-- Morte de inimigos
+### 🗺️ Progressão
+- Múltiplas fases
+- Mensagens de transição de nível
+- Portões interativos
+- Sistema de progressão
+
+### 🖥️ Interface (HUD)
+- Contador de FPS
+- Minimap em tempo real
+- Barra de vida
+- Barra de armadura
+- Informações da arma equipada
+- Quantidade de munição
+- Contador de inimigos derrotados
+- Seleção visual de armas
+
+### ⏸️ Sistema de Pausa
+- Menu de pausa
+- Estatísticas da partida
+- Retorno ao jogo
+- Reinício direto pelo menu
 
 ---
 
@@ -69,101 +77,64 @@ O objetivo foi estudar conceitos avançados de programação, matemática aplica
 - CSS3
 - JavaScript (Vanilla JS)
 - Canvas API
-- Web Audio API
-
----
-
-## 🧠 Conceitos Aplicados
-
-Durante o desenvolvimento foram utilizados diversos conceitos importantes:
-
 - Raycasting
-- Vetores e trigonometria
-- Renderização 2.5D
-- Game Loop
-- Colisão
-- Inteligência Artificial básica
-- Procedural Textures
-- Gerenciamento de estados
-- Programação orientada a objetos (conceitos adaptados)
 
 ---
 
 ## 🎯 Controles
 
-| Tecla | Ação |
+| Tecla | Função |
 |---------|---------|
-| W | Andar para frente |
-| S | Andar para trás |
-| A | Esquerda |
-| D | Direita |
+| W A S D | Movimentação |
 | Mouse | Olhar ao redor |
 | Clique Esquerdo | Atirar |
 | Shift | Correr |
 | R | Recarregar |
+| E | Interagir com portões |
+| ESC | Pausar |
 | 1 | Pistola |
 | 2 | Escopeta |
 | 3 | Metralhadora |
+| 4 | Faca |
 
 ---
 
-## 📂 Estrutura do Projeto
+## 📸 Destaques
 
-```bash
-HELLSCAPE/
-│
-├── index.html
-├── style.css
-├── script.js
-│
-└── README.md
-```
+- Renderização estilo DOOM clássico
+- Sistema completo de HUD
+- Boss fights
+- Progressão por fases
+- Minimap em tempo real
+- Sistema de armadura
+- Múltiplas armas
+- Interface inspirada em jogos retrô
 
 ---
 
 ## 🚀 Como Executar
 
-1. Clone o repositório:
+Clone o repositório:
 
 ```bash
-git clone https://github.com/seuusuario/hellscape.git
+git clone https://github.com/seuusuario/HELLSCAPE.git
 ```
 
-2. Abra a pasta do projeto.
-
-3. Execute o arquivo:
-
-```bash
-index.html
-```
-
-ou utilize a extensão **Live Server** do Visual Studio Code.
+Abra o projeto no Visual Studio Code e execute utilizando a extensão Live Server.
 
 ---
 
-## 📸 Preview
+## 📚 Objetivo
 
-O jogo apresenta:
-
-- Visual inspirado em FPS clássicos dos anos 90
-- Interface HUD completa
-- Mini mapa
-- Inimigos animados
-- Efeitos de tiro e dano
-- Renderização em primeira pessoa
-
----
-
-## 📚 Objetivo do Projeto
-
-Este projeto foi desenvolvido com fins de estudo para aprofundar conhecimentos em:
+Este projeto foi desenvolvido para aprimorar conhecimentos em:
 
 - Desenvolvimento Web
-- JavaScript Avançado
-- Matemática para Jogos
-- Programação de Engines
-- Estruturas de Dados
+- JavaScript
 - Lógica de Jogos
+- Raycasting
+- Matemática para Games
+- Estruturas de Dados
+- Programação de Sistemas Interativos
 
 ---
 
@@ -171,13 +142,8 @@ Este projeto foi desenvolvido com fins de estudo para aprofundar conhecimentos e
 
 **Luiggi Lombardi**
 
-Estudante do 3º ano do Ensino Médio e do curso técnico de Ciência de Dados, apaixonado por tecnologia, programação e desenvolvimento de jogos.
+Estudante do 3º ano do Ensino Médio e do curso técnico de Ciência de Dados.
 
-### Contato
+Atualmente estudando desenvolvimento de software, programação e criação de jogos.
 
-- GitHub: https://github.com/seuusuario
-- LinkedIn: https://linkedin.com/in/seuperfil
-
----
-
-⭐ Se gostou do projeto, deixe uma estrela no repositório!
+⭐ Se gostou do projeto, deixe uma estrela no repositório.
